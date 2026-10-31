@@ -1,0 +1,621 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Física en 15 segundos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Concepto: hoja de cuaderno cuadriculado con margen rojo doble; el temporizador es una regla graduada de 15 segundos. */
+  :root {
+    --paper: #F4F7FB;
+    --grid: #DCE4F0;
+    --ink: #14213D;
+    --ink-2: #46546C;
+    --rule: #B7C3D7;
+    --accent: #1F4FD8;
+    --on-accent: #FFFFFF;
+    --margin: #D4352C;
+    --hl: #FFE766;
+    --on-hl: #2B2500;
+    --ok: #1B7A4B;
+    --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0E1522;
+      --grid: #1A2740;
+      --ink: #E7EEFB;
+      --ink-2: #9FB0CC;
+      --rule: #2E3E5E;
+      --accent: #7FA2FF;
+      --on-accent: #0B1226;
+      --margin: #FF6B5E;
+      --hl: #54460A;
+      --on-hl: #FFF2B0;
+      --ok: #5FD39A;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0E1522;
+    --grid: #1A2740;
+    --ink: #E7EEFB;
+    --ink-2: #9FB0CC;
+    --rule: #2E3E5E;
+    --accent: #7FA2FF;
+    --on-accent: #0B1226;
+    --margin: #FF6B5E;
+    --hl: #54460A;
+    --on-hl: #FFF2B0;
+    --ok: #5FD39A;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { min-height: 100%; }
+  body {
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: var(--ink);
+    font: 400 17px/1.55 var(--f-body);
+    padding-block: 28px 56px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  main {
+    max-width: 720px;
+    margin-inline: auto;
+    border-left: 3px double var(--margin);
+    padding-left: clamp(14px, 3vw, 28px);
+    min-width: 0;
+  }
+  button, input { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  .kicker {
+    font: 500 0.78rem/1.3 var(--f-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    margin: 0;
+  }
+  h1 {
+    font: 700 clamp(2.3rem, 9vw, 3.8rem)/1.02 var(--f-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin: 10px 0 0;
+  }
+  .mark { background: linear-gradient(transparent 58%, var(--hl) 58%); }
+  .lead { max-width: 60ch; margin: 18px 0 0; color: var(--ink); }
+
+  .setup { display: flex; flex-direction: column; gap: 28px; margin-top: 28px; }
+  fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+  legend { padding: 0; margin-bottom: 10px; }
+  .choices { display: flex; flex-wrap: wrap; gap: 10px; }
+  .choice { position: relative; display: inline-flex; }
+  .choice input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .choice span {
+    display: inline-flex; align-items: center; gap: 10px;
+    min-height: 44px; padding: 8px 14px;
+    border: 1.5px solid var(--ink);
+    border-radius: 2px;
+    background: var(--paper);
+    line-height: 1.2;
+  }
+  .choice input:checked + span { background: var(--ink); color: var(--paper); }
+  .choice input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .choice .n { font: 500 0.8rem var(--f-mono); opacity: 0.75; }
+
+  .btn {
+    min-height: 50px; padding: 0 22px;
+    border: 1.5px solid var(--ink);
+    border-radius: 2px;
+    background: var(--paper);
+    color: var(--ink);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .btn:hover { background: var(--grid); }
+  .btn.primary {
+    background: var(--accent); border-color: var(--accent); color: var(--on-accent);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .btn.primary:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+  .btn[disabled] { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+  .btn.ghost { border-color: transparent; background: transparent; min-height: 40px; padding: 0 8px; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; }
+  .btn.ghost:hover { background: transparent; color: var(--ink); }
+  .btn kbd {
+    font: 500 0.72rem var(--f-mono);
+    margin-left: 10px; padding: 1px 6px;
+    border: 1px solid currentColor; border-radius: 2px; opacity: 0.7;
+  }
+  @media (hover: none) { .btn kbd { display: none; } }
+
+  .start-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+  .summary { font: 400 0.85rem var(--f-mono); color: var(--ink-2); margin: 0; }
+  .source { margin-top: 36px; font-size: 0.85rem; color: var(--ink-2); max-width: 60ch; }
+
+  /* Pregunta */
+  .qhead {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px;
+  }
+  .timer { display: flex; align-items: flex-end; gap: 18px; margin-top: 22px; }
+  .num {
+    font: 500 clamp(3.6rem, 17vw, 5.6rem)/0.9 var(--f-mono);
+    font-variant-numeric: tabular-nums;
+    min-width: 2ch; text-align: right;
+    flex: none;
+  }
+  .num small { font-size: 0.3em; margin-left: 4px; color: var(--ink-2); }
+  .ruler-wrap { flex: 1; min-width: 0; padding-bottom: 26px; }
+  .ruler { position: relative; height: 40px; border-bottom: 2px solid var(--ink); }
+  .ruler .fill {
+    position: absolute; left: 0; bottom: -2px; height: 8px;
+    width: calc(var(--p, 1) * 100%);
+    background: var(--accent);
+  }
+  .ruler .ticks, .ruler .ticks5 { position: absolute; left: 0; right: 0; bottom: 0; pointer-events: none; }
+  .ruler .ticks {
+    height: 16px;
+    background-image: repeating-linear-gradient(to right, var(--ink) 0 1.5px, transparent 1.5px calc(100% / 15));
+    border-right: 1.5px solid var(--ink);
+  }
+  .ruler .ticks5 {
+    height: 28px;
+    background-image: repeating-linear-gradient(to right, var(--ink) 0 2px, transparent 2px calc(100% / 3));
+    border-right: 2px solid var(--ink);
+  }
+  .ruler .lab {
+    position: absolute; top: calc(100% + 6px);
+    left: calc(var(--i) / 15 * 100%);
+    transform: translateX(-50%);
+    font: 400 0.72rem var(--f-mono); color: var(--ink-2);
+  }
+  .ruler .lab.first { transform: none; }
+  .ruler .lab.last { transform: translateX(-100%); }
+  .timer.urgent .num { color: var(--margin); }
+  .timer.urgent .fill { background: var(--margin); }
+
+  .question {
+    margin: 24px 0 0;
+    font: 600 clamp(1.45rem, 5.2vw, 2.15rem)/1.2 var(--f-display);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    min-height: 3.6em;
+    outline: none;
+  }
+  .hint { margin: 14px 0 0; color: var(--ink-2); font-size: 0.95rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+
+  .answer {
+    margin-top: 22px; padding: 18px 20px 20px;
+    background: var(--hl); color: var(--on-hl);
+    border-radius: 2px; outline: none;
+  }
+  .answer .kicker { color: inherit; opacity: 0.8; }
+  .answer .status { margin: 4px 0 0; font: 500 0.85rem var(--f-mono); }
+  .a-text { margin: 12px 0 0; white-space: pre-line; font-size: 1.12rem; line-height: 1.5; }
+  .a-proc {
+    margin: 14px 0 0; padding-top: 12px;
+    border-top: 1px dashed currentColor;
+    white-space: pre-line;
+    font: 400 0.95rem/1.6 var(--f-mono);
+  }
+
+  /* Resultados */
+  .score { font: 700 clamp(3.2rem, 15vw, 5.4rem)/1 var(--f-display); letter-spacing: -0.03em; margin: 12px 0 0; }
+  .score span { color: var(--ink-2); font-weight: 600; }
+  .verdict { margin: 8px 0 0; font-size: 1.1rem; }
+  .review-list { margin: 28px 0 0; padding: 0; list-style: none; }
+  .review-list li { border-top: 1px solid var(--rule); padding: 14px 0; }
+  .review-list .rq { font-weight: 600; margin: 0; }
+  .review-list .ra { margin: 6px 0 0; white-space: pre-line; color: var(--ink-2); font-size: 0.95rem; }
+  .review-list .rp { margin: 6px 0 0; white-space: pre-line; font: 400 0.85rem/1.6 var(--f-mono); color: var(--ink-2); }
+  .results-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+</style>
+
+<main id="app">
+  <p class="kicker">Física introductoria · práctica oral</p>
+
+  <!-- Configuración -->
+  <section id="screen-setup" aria-labelledby="title">
+    <h1 id="title">Física en <span class="mark">15 segundos</span></h1>
+    <p class="lead">Aparece una pregunta sin opciones. Escribe tu respuesta en la libreta antes de que se acabe el tiempo. Si terminas antes, pulsa «Ya he respondido» para ver la clave y avanzar.</p>
+
+    <div class="setup">
+      <fieldset>
+        <legend class="kicker">Temas</legend>
+        <div class="choices" id="topics"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="kicker">Número de preguntas</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="count" value="10"><span>10</span></label>
+          <label class="choice"><input type="radio" name="count" value="20" checked><span>20</span></label>
+          <label class="choice"><input type="radio" name="count" value="30"><span>30</span></label>
+          <label class="choice"><input type="radio" name="count" value="0"><span>Todas</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="kicker">Orden</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="order" value="random" checked><span>Aleatorio</span></label>
+          <label class="choice"><input type="radio" name="order" value="guide"><span>Como en la guía</span></label>
+        </div>
+      </fieldset>
+
+      <div class="start-row">
+        <button class="btn primary" id="btnStart" type="button">Comenzar</button>
+        <p class="summary" id="summary" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <p class="source">Las preguntas salen de tu guía de estudio (conocimientos, método científico, medición, SI, errores y conversiones). Incluye las del banco y el simulacro, más otras de repaso.</p>
+  </section>
+
+  <!-- Pregunta -->
+  <section id="screen-quiz" hidden aria-label="Pregunta">
+    <div class="qhead kicker">
+      <span id="qpos">Pregunta 1 de 20</span>
+      <span id="qtopic">Tema</span>
+    </div>
+
+    <div class="timer" id="timer" role="timer" aria-live="off">
+      <div class="num" id="num">15<small>s</small></div>
+      <div class="ruler-wrap">
+        <div class="ruler" id="ruler" aria-hidden="true">
+          <div class="fill"></div>
+          <div class="ticks"></div>
+          <div class="ticks5"></div>
+          <span class="lab first" style="--i:0">0</span>
+          <span class="lab" style="--i:5">5</span>
+          <span class="lab" style="--i:10">10</span>
+          <span class="lab last" style="--i:15">15</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="question" id="question" tabindex="-1"></h2>
+    <p class="hint" id="hint">Escribe tu respuesta en la libreta.</p>
+
+    <div class="actions" id="askActions">
+      <button class="btn primary" id="btnDone" type="button">Ya he respondido<kbd>Enter</kbd></button>
+      <button class="btn ghost" id="btnFinish" type="button">Terminar sesión</button>
+    </div>
+
+    <div class="answer" id="answer" tabindex="-1" hidden>
+      <p class="kicker">Respuesta</p>
+      <p class="status" id="status"></p>
+      <p class="a-text" id="aText"></p>
+      <p class="a-proc" id="aProc" hidden></p>
+    </div>
+
+    <div class="actions" id="gradeActions" hidden>
+      <button class="btn primary" id="btnOk" type="button">La acerté<kbd>1</kbd></button>
+      <button class="btn" id="btnRev" type="button">Me faltó, repasar<kbd>2</kbd></button>
+    </div>
+  </section>
+
+  <!-- Resultados -->
+  <section id="screen-results" hidden aria-label="Resultados">
+    <p class="kicker">Sesión terminada</p>
+    <p class="score" id="score"></p>
+    <p class="verdict" id="verdict"></p>
+    <div class="results-actions">
+      <button class="btn primary" id="btnRetry" type="button">Repasar las que me faltaron</button>
+      <button class="btn" id="btnAgain" type="button">Nueva sesión</button>
+    </div>
+    <ul class="review-list" id="reviewList"></ul>
+  </section>
+</main>
+
+<script>
+(function () {
+  var DURATION = 15000;
+
+  var TOPICS = {
+    con: "Conocimientos",
+    met: "Método científico",
+    med: "Medición y SI",
+    err: "Instrumentos y errores",
+    cnv: "Conversiones y cálculos"
+  };
+
+  // [tema, pregunta, respuesta, procedimiento (opcional)]
+  var BANK = [
+    // Conocimientos
+    ["con", "¿Qué es el conocimiento empírico?", "Es lo que se aprende al observar, probar y vivir situaciones, a partir de la experiencia directa y los sentidos. No exige un método científico formal."],
+    ["con", "Menciona tres características del conocimiento empírico.", "Tres cualesquiera de estas:\n• Se basa en la experiencia y la interacción directa.\n• Usa la percepción sensorial.\n• Puede ser subjetivo.\n• No siempre se puede comprobar ni generalizar.\n• No exige procedimientos sistemáticos.\n• Es práctico para la vida cotidiana.\n• Se refiere a casos particulares."],
+    ["con", "Da dos ejemplos de conocimiento empírico.", "Por ejemplo: aprender que una taza muy caliente quema; anticipar lluvia al ver nubes oscuras; ajustar una receta por ensayo y error; el pescador que reconoce los momentos favorables por observación repetida."],
+    ["con", "¿«Empírico» significa que un conocimiento es falso?", "No. Puede ser correcto y útil, pero no está necesariamente verificado de forma rigurosa. Puede tener errores de percepción o conclusiones apresuradas."],
+    ["con", "¿Qué es el conocimiento tradicional?", "Es el conjunto de saberes, creencias, técnicas y costumbres que una comunidad transmite de generación en generación para resolver problemas del entorno y preservar su cultura."],
+    ["con", "Menciona tres características del conocimiento tradicional.", "Tres cualesquiera de estas:\n• Se transmite de forma oral y con prácticas comunitarias.\n• Varía entre grupos sociales, culturas o regiones.\n• Se basa en la experiencia colectiva acumulada.\n• Suele estar vinculado con la naturaleza.\n• Combina técnicas prácticas y significados simbólicos o religiosos.\n• No requiere el método científico formal para transmitirse."],
+    ["con", "Da dos ejemplos de conocimiento tradicional.", "Por ejemplo: uso de plantas con fines curativos; técnicas agrícolas según las temporadas locales; conocimiento del comportamiento de los animales para orientarse o pescar; celebraciones y rituales con sentido cultural o espiritual."],
+    ["con", "¿En qué se diferencia el conocimiento tradicional del empírico?", "El empírico nace de la experiencia personal y suele ser particular. El tradicional es colectivo: se acumula en una comunidad, se transmite entre generaciones y forma parte de su cultura."],
+    ["con", "¿Puede estudiarse científicamente un saber tradicional?", "Sí. Algunas prácticas pueden evaluarse con observación y experimentos. Lo correcto es decir que no todo el conocimiento tradicional ha sido evaluado con métodos científicos, no que sea «no objetivo». Natural no significa seguro."],
+    ["con", "¿En qué se basa el conocimiento científico?", "En la investigación sistemática: preguntas, hipótesis comprobables, experimentos controlados y análisis de datos, con pruebas reproducibles que otras personas puedan examinar."],
+
+    // Método científico
+    ["met", "¿Qué es el método científico?", "Es un proceso sistemático y crítico de investigación que usa observación, hipótesis comprobables, procedimientos controlados y análisis de datos para llegar a conclusiones que otras personas puedan examinar y, si es posible, reproducir."],
+    ["met", "Escribe en orden los seis pasos del método científico.", "1. Observación\n2. Pregunta\n3. Hipótesis\n4. Experimentación\n5. Análisis de resultados\n6. Conclusión\n\nTruco: O–P–H–E–A–C."],
+    ["met", "¿Qué es una hipótesis?", "Una explicación provisional y comprobable que se propone antes de reunir los datos decisivos. No es una respuesta definitiva."],
+    ["met", "¿Qué paso del método científico sigue después de formular la hipótesis?", "La experimentación, donde se pone a prueba la hipótesis."],
+    ["met", "¿Qué diferencia hay entre hipótesis y conclusión?", "La hipótesis se propone antes de reunir los datos decisivos. La conclusión se redacta después de analizar los datos e indica si la evidencia respalda la hipótesis."],
+    ["met", "En un experimento, ¿qué es la variable independiente?", "Lo que se cambia deliberadamente. Ejemplo: la cantidad de luz en un experimento de germinación."],
+    ["met", "En un experimento, ¿qué es la variable dependiente?", "El resultado que se mide. Ejemplo: la cantidad de semillas germinadas."],
+    ["met", "¿Qué son las variables controladas?", "Las condiciones que se mantienen iguales para no confundir el resultado. Ejemplo: agua, temperatura, tipo de semilla y tiempo."],
+    ["met", "Se ponen 20 semillas con luz y 20 en oscuridad. ¿Cuál es la variable independiente y cuál la dependiente?", "Independiente: la luz.\nDependiente: el número de semillas germinadas.\nControladas: agua, temperatura, especie de semilla y tiempo."],
+    ["met", "Con luz germinaron 16 de 20 semillas y sin luz 10 de 20. ¿Qué porcentajes salen y cuál es la diferencia?", "Con luz: 80 %. Sin luz: 50 %. La diferencia es de 30 puntos porcentuales.", "16/20 × 100 = 80 %\n10/20 × 100 = 50 %\n80 − 50 = 30 puntos"],
+    ["met", "Una estudiante cambia al mismo tiempo la cantidad de agua y el tipo de semilla, y concluye que el agua causó el resultado. ¿Qué falla?", "Modificó dos variables a la vez, así que no puede atribuir el efecto a una sola. Debe cambiar solo una y mantener controladas las demás."],
+    ["met", "¿Para qué sirve el análisis de resultados?", "Para interpretar los datos registrados (compararlos, calcular porcentajes o promedios) y evaluar si respaldan la hipótesis."],
+    ["met", "¿Una hipótesis se «demuestra para siempre»?", "No. Se puede respaldar con evidencia, pero las explicaciones siguen abiertas a evaluación."],
+    ["met", "Si el resultado del experimento contradice la hipótesis, ¿es un fracaso?", "No. Un resultado contrario también enseña: permite rechazar o modificar la hipótesis y plantear nuevas preguntas."],
+
+    // Medición y SI
+    ["med", "¿Qué es medir?", "Comparar una magnitud con una unidad de referencia."],
+    ["med", "¿Qué es una magnitud física?", "Una propiedad de un cuerpo, sustancia o fenómeno que se puede expresar con un número y una referencia. Ejemplos: longitud, masa, tiempo, temperatura."],
+    ["med", "¿Qué es una unidad de medida?", "Una cantidad de referencia establecida por convenio y usada para comparar magnitudes. Ejemplos: metro, kilogramo, segundo."],
+    ["med", "En «2.4 m de largo», ¿cuál es la magnitud, el número y la unidad?", "Magnitud: longitud.\nNúmero: 2.4.\nUnidad: m (metro)."],
+    ["med", "¿Qué diferencia hay entre medición directa e indirecta?", "Directa: se lee con un instrumento, como medir una longitud con regla. Indirecta: se calcula a partir de otras mediciones, como v = distancia / tiempo.", "Directa: 2.5 m de pared\nIndirecta: v = 100 m / 20 s = 5 m/s"],
+    ["med", "Nombra las siete magnitudes fundamentales del SI con su unidad y símbolo.", "Longitud: metro (m)\nMasa: kilogramo (kg)\nTiempo: segundo (s)\nCorriente eléctrica: amperio (A)\nTemperatura termodinámica: kelvin (K)\nCantidad de sustancia: mol (mol)\nIntensidad luminosa: candela (cd)"],
+    ["med", "¿Qué es una magnitud derivada? Da tres ejemplos.", "Una magnitud que combina magnitudes fundamentales mediante relaciones matemáticas. Ejemplos: área (m²), volumen (m³), velocidad (m/s), aceleración (m/s²), fuerza (N)."],
+    ["med", "¿Cuál es la unidad SI de la fuerza y a qué equivale?", "El newton (N).", "F = m·a\n1 N = 1 kg·m/s²"],
+    ["med", "¿Qué unidad SI corresponde a la velocidad y a la aceleración?", "Velocidad: m/s (metro por segundo).\nAceleración: m/s² (metro por segundo cuadrado)."],
+    ["med", "¿En qué unidades SI se expresan el área y el volumen?", "Área: m² (metro cuadrado).\nVolumen: m³ (metro cúbico)."],
+    ["med", "¿Cuál es la unidad SI de la energía?", "El joule (J).", "1 J = 1 N·m = 1 kg·m²/s²"],
+    ["med", "¿Cómo se escriben los símbolos del amperio, el kelvin, la candela y el mol?", "A, K, cd y mol. Las mayúsculas y minúsculas son parte del símbolo: no es «a», «k», «Cd» ni «Mol». Los símbolos no se pluralizan (nunca «kgs»)."],
+    ["med", "¿Qué es un mol y cuántas entidades contiene?", "Es la cantidad de sustancia que contiene exactamente 6.02214076 × 10²³ entidades elementales (átomos, moléculas, iones...). No es una unidad de masa."],
+    ["med", "¿Cuántas moléculas hay en 2 mol de H₂O?", "1.204428152 × 10²⁴ moléculas.", "2 × 6.02214076 × 10²³ = 1.204428152 × 10²⁴"],
+    ["med", "¿Por qué el litro no es una unidad fundamental del SI?", "Porque mide volumen, que es una magnitud derivada (m³ en el SI). El litro pertenece al sistema métrico decimal."],
+    ["med", "Menciona los sistemas de unidades de tus apuntes con ejemplos.", "SI: m, kg, s, A, K, mol, cd.\nSistema métrico decimal: m, g, L y sus múltiplos.\nCGS: cm, g, s.\nSistema inglés o estadounidense: pie, pulgada, libra."],
+    ["med", "¿Cuál es la diferencia entre masa y peso, y en qué unidad va cada una?", "La masa es la cantidad de materia y se mide en kg. El peso es una fuerza y se mide en newtons (N)."],
+    ["med", "¿Por qué es importante tener un sistema de unidades común?", "Porque si dos personas usan referencias distintas sin especificarlas, no pueden comparar sus mediciones. El SI fija convenciones internacionales para expresar resultados compatibles."],
+    ["med", "¿Con qué unidades suelen expresarse la masa molar y la concentración en química?", "Masa molar: g/mol.\nConcentración: mol/L.\nLa temperatura se da en K (también se usa °C)."],
+    ["med", "Describe el proceso para realizar una medición.", "Elegir la magnitud → escoger instrumento y unidad → verificar su estado o calibración → medir → registrar número, unidad y condiciones → estimar la incertidumbre apropiada."],
+
+    // Instrumentos y errores
+    ["err", "Menciona el instrumento para medir: masa, tiempo, temperatura, volumen y corriente eléctrica.", "Masa: balanza.\nTiempo: cronómetro.\nTemperatura: termómetro.\nVolumen: probeta.\nCorriente eléctrica: amperímetro."],
+    ["err", "¿Qué es la resolución de un instrumento?", "El paso o cambio mínimo que puede indicar. Ejemplo: una balanza que muestra 0.1 g tiene resolución de 0.1 g."],
+    ["err", "¿Qué es la precisión?", "Qué tanto concuerdan entre sí mediciones repetidas.", "Ejemplo: 5.00, 5.01 y 5.00 g son lecturas de alta precisión."],
+    ["err", "¿Qué es la exactitud?", "Qué tan cerca está el resultado de un valor de referencia aceptado.", "Ejemplo: si el patrón es 5.00 g, medir 5.01 g tiene buena exactitud."],
+    ["err", "¿Qué es la incertidumbre de una medición?", "Un parámetro que expresa la dispersión razonable de los valores atribuibles a lo medido.", "Ejemplo: 25.0 ± 0.1 cm"],
+    ["err", "Tres lecturas dan 4.0, 4.0 y 4.0 cm, pero el valor de referencia es 5.0 cm. ¿Cómo son esas lecturas?", "Muy precisas (concuerdan entre sí) pero inexactas (están lejos del valor de referencia)."],
+    ["err", "¿Una medida precisa es necesariamente exacta?", "No. Las lecturas pueden estar muy agrupadas y aun así tener un sesgo que las aleje del valor de referencia."],
+    ["err", "¿Qué es un error sistemático? Da un ejemplo y cómo reducirlo.", "Un sesgo que se repite o sigue un patrón reconocible. Ejemplos: balanza con el cero mal ajustado, regla deformada, termómetro descalibrado. Se reduce verificando y calibrando los instrumentos y corrigiendo sesgos conocidos."],
+    ["err", "¿Qué es un error aleatorio? Da un ejemplo y cómo reducir sus efectos.", "Una variación difícil de predecir de una medición a otra. Ejemplos: pequeñas fluctuaciones de lectura, vibraciones. Se reduce repitiendo mediciones, analizando su dispersión y controlando las condiciones."],
+    ["err", "Una balanza siempre suma 1.0 g a lo que pesa. ¿Qué tipo de error es?", "Sistemático, porque es un sesgo constante."],
+    ["err", "¿Repetir una medición elimina un error sistemático?", "No. Repetir reduce el efecto de las fluctuaciones aleatorias; un sesgo persistente requiere calibración o corrección."],
+    ["err", "¿Cuál es la resolución de una regla marcada cada milímetro y qué incertidumbre de lectura simplificada se usa?", "Resolución: 1 mm. Como regla escolar simplificada, la incertidumbre de lectura es la mitad: ± 0.5 mm.", "Importante: «precisión = mitad de la división más pequeña» es una regla escolar para estimar la incertidumbre de lectura, no la definición de precisión."],
+    ["err", "Una balanza tiene resolución de 0.1 g. ¿Cuál es la estimación simplificada de la incertidumbre de lectura?", "± 0.05 g, la mitad de la resolución. No es la incertidumbre total: también influyen la calibración y otras fuentes."],
+    ["err", "Escribe las fórmulas del error absoluto, relativo y porcentual.", "Absoluto: Eₐ = |xₘ − xᵣ| (lleva la unidad de la magnitud).\nRelativo: Eᵣ = Eₐ / |xᵣ| (sin unidad).\nPorcentual: E% = Eᵣ × 100 %.\n\nxₘ = valor medido, xᵣ = valor de referencia."],
+    ["err", "Se mide 9.8 cm en un objeto cuyo valor de referencia es 10.0 cm. Calcula los errores absoluto, relativo y porcentual.", "Absoluto: 0.2 cm. Relativo: 0.02. Porcentual: 2 %.", "Eₐ = |9.8 − 10.0| = 0.2 cm\nEᵣ = 0.2 / 10.0 = 0.02\nE% = 0.02 × 100 = 2 %"],
+    ["err", "Un objeto mide 49 cm según un instrumento y su valor de referencia es 50 cm. Calcula los tres errores.", "Absoluto: 1 cm. Relativo: 0.02. Porcentual: 2 %.", "Eₐ = |49 − 50| = 1 cm\nEᵣ = 1 / 50 = 0.02\nE% = 0.02 × 100 = 2 %"],
+    ["err", "Una muestra tiene valor de referencia de 200 g y la medición indica 196 g. Calcula los tres errores.", "Absoluto: 4 g. Relativo: 0.02. Porcentual: 2 %.", "Eₐ = |196 − 200| = 4 g\nEᵣ = 4 / 200 = 0.02\nE% = 0.02 × 100 = 2 %"],
+    ["err", "Se miden 4.9 cm, 5.0 cm y 5.1 cm. Calcula el promedio y el promedio de las desviaciones absolutas.", "Promedio: 5.0 cm. Promedio de desviaciones: 0.0667 cm. Esto describe dispersión, no prueba exactitud.", "Promedio = (4.9 + 5.0 + 5.1) / 3 = 5.0 cm\nDesviaciones: 0.1, 0 y 0.1 cm\n(0.1 + 0 + 0.1) / 3 = 0.0667 cm"],
+
+    // Conversiones y cálculos
+    ["cnv", "¿Qué es un factor unitario (factor de conversión)?", "Una fracción construida con una equivalencia entre dos unidades, que vale 1. Se multiplica sin cambiar la cantidad física.", "Ejemplo: 1 km = 1000 m\n→ 1 km / 1000 m  o  1000 m / 1 km"],
+    ["cnv", "Describe el procedimiento para convertir unidades con factores unitarios.", "1. Anota el número y la unidad inicial.\n2. Escribe la equivalencia entre las unidades.\n3. Construye el factor: la unidad que quieres eliminar va en el lado opuesto al que aparece.\n4. Multiplica y cancela unidades iguales.\n5. Revisa la unidad final y que el tamaño del resultado tenga sentido."],
+    ["cnv", "Convierte 5 m a cm.", "500 cm", "5 m × (100 cm / 1 m) = 500 cm"],
+    ["cnv", "Convierte 120 m a km.", "0.12 km", "120 m × (1 km / 1000 m) = 0.12 km"],
+    ["cnv", "Convierte 3.2 km a m.", "3200 m", "3.2 km × (1000 m / 1 km) = 3200 m"],
+    ["cnv", "Convierte 2500 mL a L.", "2.5 L", "2500 mL × (1 L / 1000 mL) = 2.5 L"],
+    ["cnv", "Convierte 0.75 L a mL.", "750 mL", "0.75 L × (1000 mL / 1 L) = 750 mL"],
+    ["cnv", "Convierte 180 s a minutos.", "3 min", "180 s × (1 min / 60 s) = 3 min"],
+    ["cnv", "Convierte 7 m a cm.", "700 cm", "7 m × (100 cm / 1 m) = 700 cm"],
+    ["cnv", "Convierte 0.45 km a m.", "450 m", "0.45 km × (1000 m / 1 km) = 450 m"],
+    ["cnv", "Si 1 kg de tortillas cuesta $20, ¿cuánto cuestan 150 g?", "$3.00", "150 g × (1 kg / 1000 g) = 0.150 kg\n0.150 kg × ($20 / 1 kg) = $3.00"],
+    ["cnv", "Si 1 kg de arroz cuesta $36, ¿cuánto cuestan 250 g?", "$9.00", "250 g × (1 kg / 1000 g) × ($36 / 1 kg) = $9.00"],
+    ["cnv", "Convierte 72 km/h a m/s.", "20 m/s", "72 km/h × (1000 m / 1 km) × (1 h / 3600 s)\n= 72 000 / 3600 m/s = 20 m/s"],
+    ["cnv", "Convierte 90 km/h a m/s.", "25 m/s", "90 km/h × (1000 m / 1 km) × (1 h / 3600 s)\n= 90 000 / 3600 m/s = 25 m/s"],
+    ["cnv", "Un vehículo recorre 180 m en 12 s. Calcula su rapidez media en m/s y en km/h.", "15 m/s = 54 km/h", "v = 180 m / 12 s = 15 m/s\n15 m/s × (3600 s / 1 h) × (1 km / 1000 m) = 54 km/h"],
+    ["cnv", "Una persona recorre 100 m en 20 s. ¿Cuál es su rapidez media?", "5 m/s", "v = d / t = 100 m / 20 s = 5 m/s"],
+    ["cnv", "Una pelota recorre 3.0 m en 1.5 s. ¿Cuál es su rapidez media?", "2.0 m/s", "v = 3.0 m / 1.5 s = 2.0 m/s"],
+    ["cnv", "¿Cuántos cm² son 1 m² y por qué no son 100?", "10 000 cm². Es un área, así que el factor se eleva al cuadrado.", "1 m² = (100 cm)² = 10 000 cm²"],
+    ["cnv", "Convierte 2.5 m² a cm².", "25 000 cm²", "2.5 m² × (100 cm / 1 m)² = 2.5 × 10 000 cm²\n= 25 000 cm²"],
+    ["cnv", "Convierte 0.004 m³ a cm³.", "4000 cm³", "0.004 m³ × (100 cm / 1 m)³ = 0.004 × 1 000 000 cm³\n= 4000 cm³"],
+    ["cnv", "¿A cuántos cm³ y a cuántos m³ equivale 1 L?", "1 L = 1000 cm³ = 0.001 m³."],
+    ["cnv", "Una caja mide 2 m de largo, 50 cm de ancho y 30 cm de alto. Calcula el volumen en m³ y en litros.", "0.30 m³ = 300 L", "50 cm = 0.50 m\n30 cm = 0.30 m\nV = 2 m × 0.50 m × 0.30 m = 0.30 m³\n0.30 m³ × (1000 L / 1 m³) = 300 L"],
+    ["cnv", "¿Cuántos segundos hay en 1 min y en 1 h?", "1 min = 60 s.\n1 h = 3600 s (60 × 60)."]
+  ];
+
+  // ---------- Utilidades ----------
+  function $(sel) { return document.querySelector(sel); }
+  function show(id) {
+    ["screen-setup", "screen-quiz", "screen-results"].forEach(function (s) {
+      document.getElementById(s).hidden = (s !== id);
+    });
+    window.scrollTo(0, 0);
+  }
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  // ---------- Configuración ----------
+  var topicBox = $("#topics");
+  Object.keys(TOPICS).forEach(function (k) {
+    var n = BANK.filter(function (b) { return b[0] === k; }).length;
+    var label = document.createElement("label");
+    label.className = "choice";
+    label.innerHTML = '<input type="checkbox" name="topic" value="' + k + '" checked><span>' + TOPICS[k] + ' <b class="n">' + n + '</b></span>';
+    topicBox.appendChild(label);
+  });
+
+  function selectedTopics() {
+    return Array.prototype.map.call(document.querySelectorAll('input[name="topic"]:checked'), function (i) { return i.value; });
+  }
+  function selectedValue(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : null;
+  }
+  function pool() {
+    var t = selectedTopics();
+    return BANK.filter(function (b) { return t.indexOf(b[0]) !== -1; });
+  }
+  function sessionSize() {
+    var p = pool().length;
+    var c = parseInt(selectedValue("count"), 10);
+    return c === 0 ? p : Math.min(c, p);
+  }
+  function updateSummary() {
+    var p = pool().length, n = sessionSize();
+    $("#btnStart").disabled = (p === 0);
+    $("#summary").textContent = p === 0
+      ? "Elige al menos un tema."
+      : n + " preguntas de " + p + " disponibles · 15 s cada una";
+  }
+  document.querySelector(".setup").addEventListener("change", updateSummary);
+  updateSummary();
+
+  // ---------- Estado de la sesión ----------
+  var queue = [], results = [], idx = 0, phase = "setup";
+  var startT = 0, rafId = 0, lastS = -1;
+
+  var elNum = $("#num"), elRuler = $("#ruler"), elTimer = $("#timer");
+
+  function paint(rem) {
+    var s = Math.ceil(rem / 1000);
+    if (s !== lastS) {
+      lastS = s;
+      elNum.innerHTML = s + "<small>s</small>";
+      elTimer.classList.toggle("urgent", s <= 5);
+    }
+    elRuler.style.setProperty("--p", String(rem / DURATION));
+  }
+
+  function tick() {
+    var rem = Math.max(0, DURATION - (performance.now() - startT));
+    paint(rem);
+    if (rem <= 0) { reveal(true); return; }
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function startQuiz(items) {
+    queue = items;
+    results = [];
+    idx = 0;
+    show("screen-quiz");
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    var item = queue[idx];
+    phase = "asking";
+    $("#qpos").textContent = "Pregunta " + (idx + 1) + " de " + queue.length;
+    $("#qtopic").textContent = TOPICS[item[0]];
+    var q = $("#question");
+    q.textContent = item[1];
+    $("#hint").hidden = false;
+    $("#askActions").hidden = false;
+    $("#answer").hidden = true;
+    $("#gradeActions").hidden = true;
+    lastS = -1;
+    paint(DURATION);
+    elTimer.classList.remove("urgent");
+    startT = performance.now();
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(tick);
+    q.focus({ preventScroll: true });
+  }
+
+  function reveal(timedOut) {
+    if (phase !== "asking") return;
+    phase = "revealed";
+    cancelAnimationFrame(rafId);
+    var elapsed = Math.min(DURATION, performance.now() - startT) / 1000;
+    var item = queue[idx];
+    $("#status").textContent = timedOut
+      ? "Se acabó el tiempo."
+      : "Respondiste en " + Math.max(1, Math.round(elapsed)) + " s.";
+    $("#aText").textContent = item[2];
+    var proc = $("#aProc");
+    if (item[3]) { proc.textContent = item[3]; proc.hidden = false; } else { proc.hidden = true; }
+    $("#hint").hidden = true;
+    $("#askActions").hidden = true;
+    $("#answer").hidden = false;
+    $("#gradeActions").hidden = false;
+    $("#answer").focus({ preventScroll: true });
+    $("#answer").scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }
+
+  function grade(ok) {
+    if (phase !== "revealed") return;
+    results[idx] = ok ? "ok" : "rev";
+    idx++;
+    if (idx >= queue.length) { finish(); } else { renderQuestion(); }
+  }
+
+  function finish() {
+    cancelAnimationFrame(rafId);
+    var answered = results.filter(Boolean).length;
+    if (answered === 0) { phase = "setup"; show("screen-setup"); return; }
+    phase = "done";
+    var ok = results.filter(function (r) { return r === "ok"; }).length;
+    var pct = ok / answered;
+    $("#score").innerHTML = ok + '<span> de ' + answered + '</span>';
+    var v;
+    if (pct >= 0.9) v = "Dominio sólido. Revisa solo los errores aislados y explica los temas sin apuntes.";
+    else if (pct >= 0.75) v = "Buen avance. Refuerza los tipos de pregunta que fallaste.";
+    else if (pct >= 0.6) v = "Necesitas consolidar. Vuelve a estudiar las tablas del SI, el método y las conversiones.";
+    else v = "Conviene repasar fundamentos. Relee los temas de la guía y resuelve los ejemplos guiados.";
+    $("#verdict").textContent = Math.round(pct * 100) + " % de aciertos. " + v;
+
+    var list = $("#reviewList");
+    list.innerHTML = "";
+    var missed = [];
+    queue.forEach(function (item, i) {
+      if (results[i] === "rev") {
+        missed.push(item);
+        var li = document.createElement("li");
+        var q = document.createElement("p"); q.className = "rq"; q.textContent = item[1];
+        var a = document.createElement("p"); a.className = "ra"; a.textContent = item[2];
+        li.appendChild(q); li.appendChild(a);
+        if (item[3]) { var p = document.createElement("p"); p.className = "rp"; p.textContent = item[3]; li.appendChild(p); }
+        list.appendChild(li);
+      }
+    });
+    $("#btnRetry").hidden = (missed.length === 0);
+    $("#btnRetry").onclick = function () { startQuiz(missed); };
+    show("screen-results");
+  }
+
+  // ---------- Eventos ----------
+  $("#btnStart").addEventListener("click", function () {
+    var items = pool();
+    if (selectedValue("order") === "random") items = shuffle(items);
+    startQuiz(items.slice(0, sessionSize()));
+  });
+  $("#btnDone").addEventListener("click", function () { reveal(false); });
+  $("#btnOk").addEventListener("click", function () { grade(true); });
+  $("#btnRev").addEventListener("click", function () { grade(false); });
+  $("#btnFinish").addEventListener("click", finish);
+  $("#btnAgain").addEventListener("click", function () { phase = "setup"; show("screen-setup"); });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var onButton = e.target && e.target.tagName === "BUTTON";
+    if (phase === "asking" && (e.key === "Enter" || e.key === " ") && !onButton) {
+      e.preventDefault();
+      reveal(false);
+    } else if (phase === "revealed") {
+      if (e.key === "1") grade(true);
+      else if (e.key === "2") grade(false);
+    }
+  });
+})();
+</script>
+
+</body></html>
